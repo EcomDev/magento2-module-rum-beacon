@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_controller_product_init_after">
+        <observer name="EcomDev_RUMBeacon::store_product_info" instance="EcomDev\RUMBeacon\Observer\StoreCurrentProductInfo"/>
+    </event>
+
+    <event name="catalog_controller_category_init_after">
+        <observer name="EcomDev_RUMBeacon::store_category_info" instance="EcomDev\RUMBeacon\Observer\StoreCurrentCategoryInfo"/>
+    </event>
+
+    <event name="controller_action_predispatch_catalog">
+        <observer name="EcomDev_RUMBeacon::store_page_info" instance="EcomDev\RUMBeacon\Observer\StoreCurrentRouteInfo"/>
+    </event>
+
+    <event name="controller_action_predispatch_catalogsearch">
+        <observer name="EcomDev_RUMBeacon::store_page_info" instance="EcomDev\RUMBeacon\Observer\StoreCurrentRouteInfo"/>
+    </event>
+
+    <event name="controller_action_predispatch_cms">
+        <observer name="EcomDev_RUMBeacon::store_page_info" instance="EcomDev\RUMBeacon\Observer\StoreCurrentRouteInfo"/>
+    </event>
+
+    <event name="controller_action_predispatch_customer">
+        <observer name="EcomDev_RUMBeacon::store_page_info" instance="EcomDev\RUMBeacon\Observer\StoreCurrentRouteInfo"/>
+    </event>
+
+    <event name="controller_action_predispatch_checkout">
+        <observer name="EcomDev_RUMBeacon::store_page_info" instance="EcomDev\RUMBeacon\Observer\StoreCurrentRouteInfo"/>
+    </event>
+</config>

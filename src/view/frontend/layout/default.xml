@@ -1,0 +1,14 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="EcomDev_RUMBeacon::js/beacon.js" defer="true" crossorigin="anonymous" />
+    </head>
+    <body>
+        <referenceContainer name="before.body.end">
+            <block template="EcomDev_RUMBeacon::js-config.phtml">
+                <arguments>
+                    <argument name="beacon_info" xsi:type="object">EcomDev\RUMBeacon\ViewModel\BeaconInfo</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

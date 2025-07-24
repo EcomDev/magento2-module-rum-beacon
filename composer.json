@@ -1,0 +1,21 @@
+{
+  "name": "ecomdev/magento2-module-rum-beacon",
+  "description": "Magento 2 RUM Beacon",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "magento/module-page-cache": "*",
+    "magento/module-catalog": "*"
+  },
+  "license": [
+    "MIT"
+  ],
+  "autoload": {
+    "files": [
+      "src/registration.php"
+    ],
+    "psr-4": {
+      "EcomDev\\RUMBeacon\\": "src/"
+    }
+  }
+}
