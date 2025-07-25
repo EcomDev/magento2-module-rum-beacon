@@ -13,7 +13,7 @@ export interface BeaconConfig {
 }
 
 export function loadConfiguration(): BeaconConfig | false {
-    const beaconIngestElement = document.querySelector('script[type="ecomdev/rum-beacon-ingest"]');
+    const beaconIngestElement = document.querySelector('script[type="text/x-rum-beacon-config"]');
     if (!beaconIngestElement) {
         return false;
     }

@@ -1,5 +1,5 @@
 function Ct() {
-  const e = document.querySelector('script[type="ecomdev/rum-beacon-ingest"]');
+  const e = document.querySelector('script[type="text/x-rum-beacon-config"]');
   if (!e)
     return !1;
   const t = JSON.parse(e.textContent);
@@ -36,13 +36,13 @@ class ot {
     this.o && r && i && t.startTime - i.startTime < 1e3 && t.startTime - r.startTime < 5e3 ? (this.o += t.value, this.i.push(t)) : (this.o = t.value, this.i = [t]), this.t?.(t);
   }
 }
-const P = () => {
+const I = () => {
   const e = performance.getEntriesByType("navigation")[0];
   if (e && e.responseStart > 0 && e.responseStart < performance.now()) return e;
 }, R = (e) => {
   if (document.readyState === "loading") return "loading";
   {
-    const t = P();
+    const t = I();
     if (t) {
       if (e < t.domInteractive) return "loading";
       if (t.domContentLoadedEventStart === 0 || e < t.domContentLoadedEventStart) return "dom-interactive";
@@ -50,14 +50,14 @@ const P = () => {
     }
   }
   return "complete";
-}, It = (e) => {
+}, xt = (e) => {
   const t = e.nodeName;
   return e.nodeType === 1 ? t.toLowerCase() : t.toUpperCase().replace(/^#/, "");
 }, Z = (e) => {
   let t = "";
   try {
     for (; e?.nodeType !== 9; ) {
-      const r = e, i = r.id ? "#" + r.id : [It(r), ...Array.from(r.classList).sort()].join(".");
+      const r = e, i = r.id ? "#" + r.id : [xt(r), ...Array.from(r.classList).sort()].join(".");
       if (t.length + i.length > 99) return t || i;
       if (t = t ? i + ">" + t : i, r.id) break;
       e = r.parentNode;
@@ -70,7 +70,7 @@ function w(e, t) {
   return Q.get(e) || Q.set(e, new t()), Q.get(e);
 }
 let yt = -1;
-const bt = () => yt, x = (e) => {
+const bt = () => yt, P = (e) => {
   addEventListener("pageshow", (t) => {
     t.persisted && (yt = t.timeStamp, e(t));
   }, !0);
@@ -81,11 +81,11 @@ const bt = () => yt, x = (e) => {
   };
 }, tt = (e) => {
   requestAnimationFrame(() => requestAnimationFrame(() => e()));
-}, F = () => P()?.activationStart ?? 0, S = (e, t = -1) => {
-  const r = P();
+}, F = () => I()?.activationStart ?? 0, S = (e, t = -1) => {
+  const r = I();
   let i = "navigate";
   return bt() >= 0 ? i = "back-forward-cache" : r && (document.prerendering || F() > 0 ? i = "prerender" : document.wasDiscarded ? i = "restore" : r.type && (i = r.type.replace(/_/g, "-"))), { name: e, value: t, rating: "good", delta: 0, entries: [], id: `v5-${Date.now()}-${Math.floor(8999999999999 * Math.random()) + 1e12}`, navigationType: i };
-}, I = (e, t, r = {}) => {
+}, x = (e, t, r = {}) => {
   try {
     if (PerformanceObserver.supportedEntryTypes.includes(e)) {
       const i = new PerformanceObserver((n) => {
@@ -105,15 +105,15 @@ const bt = () => yt, x = (e) => {
 };
 let M = -1;
 const st = () => document.visibilityState !== "hidden" || document.prerendering ? 1 / 0 : 0, j = (e) => {
-  document.visibilityState === "hidden" && M > -1 && (M = e.type === "visibilitychange" ? e.timeStamp : 0, Pt());
+  document.visibilityState === "hidden" && M > -1 && (M = e.type === "visibilitychange" ? e.timeStamp : 0, It());
 }, ct = () => {
   addEventListener("visibilitychange", j, !0), addEventListener("prerenderingchange", j, !0);
-}, Pt = () => {
+}, It = () => {
   removeEventListener("visibilitychange", j, !0), removeEventListener("prerenderingchange", j, !0);
 }, St = () => {
   if (M < 0) {
     const e = F();
-    M = (document.prerendering ? void 0 : globalThis.performance.getEntriesByType("visibility-state").filter((r) => r.name === "hidden" && r.startTime > e)[0]?.startTime) ?? st(), ct(), x(() => {
+    M = (document.prerendering ? void 0 : globalThis.performance.getEntriesByType("visibility-state").filter((r) => r.name === "hidden" && r.startTime > e)[0]?.startTime) ?? st(), ct(), P(() => {
       setTimeout(() => {
         M = st(), ct();
       });
@@ -128,16 +128,16 @@ const st = () => document.visibilityState !== "hidden" || document.prerendering 
   U(() => {
     const r = St();
     let i, n = S("FCP");
-    const o = I("paint", (a) => {
+    const o = x("paint", (a) => {
       for (const s of a) s.name === "first-contentful-paint" && (o.disconnect(), s.startTime < r.firstHiddenTime && (n.value = Math.max(s.startTime - F(), 0), n.entries.push(s), i(!0)));
     });
-    o && (i = b(e, n, ut, t.reportAllChanges), x((a) => {
+    o && (i = b(e, n, ut, t.reportAllChanges), P((a) => {
       n = S("FCP"), i = b(e, n, ut, t.reportAllChanges), tt(() => {
         n.value = performance.now() - a.timeStamp, i(!0);
       });
     }));
   });
-}, lt = [0.1, 0.25], dt = (e) => e.find((t) => t.node?.nodeType === 1) || e[0], xt = (e, t = {}) => {
+}, lt = [0.1, 0.25], dt = (e) => e.find((t) => t.node?.nodeType === 1) || e[0], Pt = (e, t = {}) => {
   const r = w(t = Object.assign({}, t), ot), i = /* @__PURE__ */ new WeakMap();
   r.t = (n) => {
     if (n?.sources?.length) {
@@ -153,10 +153,10 @@ const st = () => document.visibilityState !== "hidden" || document.prerendering 
       const u = w(o, ot), g = (h) => {
         for (const T of h) u.u(T);
         u.o > s.value && (s.value = u.o, s.entries = u.i, a());
-      }, m = I("layout-shift", g);
+      }, m = x("layout-shift", g);
       m && (a = b(n, s, lt, o.reportAllChanges), document.addEventListener("visibilitychange", () => {
         document.visibilityState === "hidden" && (g(m.takeRecords()), a(!0));
-      }), x(() => {
+      }), P(() => {
         u.o = 0, s = S("CLS", 0), a = b(n, s, lt, o.reportAllChanges), tt(() => a());
       }), setTimeout(a));
     }));
@@ -179,7 +179,7 @@ const st = () => document.visibilityState !== "hidden" || document.prerendering 
     const i = ((n) => {
       let o = { timeToFirstByte: 0, firstByteToFCP: n.value, loadState: R(bt()) };
       if (n.entries.length) {
-        const a = P(), s = n.entries.at(-1);
+        const a = I(), s = n.entries.at(-1);
         if (a) {
           const u = a.activationStart || 0, g = Math.max(0, a.responseStart - u);
           o = { timeToFirstByte: g, firstByteToFCP: n.value - g, loadState: R(n.entries[0].startTime), navigationEntry: a, fcpEntry: s };
@@ -196,7 +196,7 @@ const Ft = (e) => {
 };
 let K;
 const gt = () => K ? Dt : performance.interactionCount ?? 0, kt = () => {
-  "interactionCount" in performance || K || (K = I("event", Ft, { type: "event", buffered: !0, durationThreshold: 0 }));
+  "interactionCount" in performance || K || (K = x("event", Ft, { type: "event", buffered: !0, durationThreshold: 0 }));
 };
 let ft = 0;
 class mt {
@@ -291,7 +291,7 @@ const X = (e) => {
       it >= D + _ + nt && (V = v.nextPaintTime - it), W && H && (v.longestScript = { entry: W, subpart: H, intersectingDuration: z }), v.totalScriptDuration = $, v.totalStyleAndLayoutDuration = A, v.totalPaintDuration = V, v.totalUnattributedDuration = v.nextPaintTime - D - $ - A - V;
     })(k), Object.assign(c, { attribution: k });
   };
-  I("long-animation-frame", (c) => {
+  x("long-animation-frame", (c) => {
     i = i.concat(c), g();
   }), ((c, l = {}) => {
     globalThis.PerformanceEventTiming && "interactionId" in PerformanceEventTiming.prototype && U(() => {
@@ -303,10 +303,10 @@ const X = (e) => {
           const L = p.M();
           L && L.T !== f.value && (f.value = L.T, f.entries = L.entries, d());
         });
-      }, C = I("event", y, { durationThreshold: l.durationThreshold ?? 40 });
+      }, C = x("event", y, { durationThreshold: l.durationThreshold ?? 40 });
       d = b(c, f, pt, l.reportAllChanges), C && (C.observe({ type: "first-input", buffered: !0 }), document.addEventListener("visibilitychange", () => {
         document.visibilityState === "hidden" && (y(C.takeRecords()), d(!0));
-      }), x(() => {
+      }), P(() => {
         p.v(), f = S("INP"), d = b(c, f, pt, l.reportAllChanges);
       }));
     });
@@ -335,14 +335,14 @@ const vt = [2500, 4e3], qt = (e, t = {}) => {
       const g = w(o, ht), m = (T) => {
         o.reportAllChanges || (T = T.slice(-1));
         for (const c of T) g.u(c), c.startTime < a.firstHiddenTime && (u.value = Math.max(c.startTime - F(), 0), u.entries = [c], s());
-      }, h = I("largest-contentful-paint", m);
+      }, h = x("largest-contentful-paint", m);
       if (h) {
         s = b(n, u, vt, o.reportAllChanges);
         const T = et(() => {
           m(h.takeRecords()), h.disconnect(), s(!0);
         });
         for (const c of ["keydown", "click", "visibilitychange"]) addEventListener(c, () => X(T), { capture: !0, once: !0 });
-        x((c) => {
+        P((c) => {
           u = S("LCP"), s = b(n, u, vt, o.reportAllChanges), tt(() => {
             u.value = performance.now() - c.timeStamp, s(!0);
           });
@@ -353,7 +353,7 @@ const vt = [2500, 4e3], qt = (e, t = {}) => {
     const o = ((a) => {
       let s = { timeToFirstByte: 0, resourceLoadDelay: 0, resourceLoadDuration: 0, elementRenderDelay: a.value };
       if (a.entries.length) {
-        const u = P();
+        const u = I();
         if (u) {
           const g = u.activationStart || 0, m = a.entries.at(-1), h = m.url && performance.getEntriesByType("resource").filter((d) => d.name === m.url)[0], T = Math.max(0, u.responseStart - g), c = Math.max(T, h ? (h.requestStart || h.startTime) - g : 0), l = Math.min(a.value, Math.max(c, h ? h.responseEnd - g : 0));
           s = { target: i.get(m), timeToFirstByte: T, resourceLoadDelay: c - T, resourceLoadDuration: l - c, elementRenderDelay: a.value - l, navigationEntry: u, lcpEntry: m }, m.url && (s.url = m.url), h && (s.lcpResourceEntry = h);
@@ -369,8 +369,8 @@ const vt = [2500, 4e3], qt = (e, t = {}) => {
   ((r, i = {}) => {
     let n = S("TTFB"), o = b(r, n, Tt, i.reportAllChanges);
     Y(() => {
-      const a = P();
-      a && (n.value = Math.max(a.responseStart - F(), 0), n.entries = [a], o(!0), x(() => {
+      const a = I();
+      a && (n.value = Math.max(a.responseStart - F(), 0), n.entries = [a], o(!0), P(() => {
         n = S("TTFB", 0), o = b(r, n, Tt, i.reportAllChanges), o(!0);
       }));
     });
@@ -436,7 +436,7 @@ function Wt(e) {
   });
 }
 function Ht(e) {
-  xt((t) => {
+  Pt((t) => {
     e.cls = {
       value: t.value,
       navigationType: t.navigationType,
