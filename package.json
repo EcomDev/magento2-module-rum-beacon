@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "web-vitals": "^5.0",
+    "vite": "^7.0"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "build:watch": "vite build --watch"
+  }
+}

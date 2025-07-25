@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\LayoutInterface">
+        <plugin name="EcomDev_RUMBeacon::record_layout_rendering"
+                type="EcomDev\RUMBeacon\Plugin\RecordLayoutRendering"
+                sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Framework\View\Layout\BuilderInterface">
+        <plugin name="EcomDev_RUMBeacon::record_layout_building"
+                type="EcomDev\RUMBeacon\Plugin\RecordLayoutBuilding"
+                sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Framework\Controller\ResultInterface">
+        <plugin name="EcomDev_RUMBeacon::render_timing_header"
+                type="EcomDev\RUMBeacon\Plugin\RenderTimingHeader"
+                sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Framework\Search\SearchEngineInterface">
+        <plugin name="EcomDev_RUMBeacon::record_search_query"
+                type="EcomDev\RUMBeacon\Plugin\RecordSearchQuery"
+                sortOrder="10" />
+    </type>
+</config>
