@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace EcomDev\RUMBeacon\ViewModel;
 
 use EcomDev\RUMBeacon\State\CurrentPageInfo;
+use Magento\Csp\Model\Collector\DynamicCollector;
+use Magento\Csp\Model\Policy\FetchPolicy;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
@@ -26,6 +28,7 @@ readonly class BeaconInfo implements ArgumentInterface
         private CurrentPageInfo $currentPageInfo,
         private ScopeConfigInterface $scopeConfig,
         private StoreManagerInterface $storeManager,
+        private DynamicCollector $cspCollector,
     ) {
     }
 
@@ -56,6 +59,7 @@ readonly class BeaconInfo implements ArgumentInterface
             default => []
         };
 
+        $isEnabled = $this->scopeConfig->isSetFlag(self::CONFIG_IS_ENABLED, ScopeInterface::SCOPE_STORE);
         $ingestionUrl = $this->scopeConfig->getValue(self::CONFIG_INGESTION_URL, ScopeInterface::SCOPE_STORE);
         if (str_contains($ingestionUrl, Store::BASE_URL_PLACEHOLDER)) {
             $ingestionUrl = str_replace(
@@ -66,13 +70,22 @@ readonly class BeaconInfo implements ArgumentInterface
                 ),
                 $ingestionUrl
             );
+        } elseif ($isEnabled) {
+            $hostName = parse_url($ingestionUrl, PHP_URL_HOST);
+            $this->cspCollector->add(
+                new FetchPolicy(
+                    'connect-src',
+                    false,
+                    [$hostName],
+                )
+            );
         }
 
         return [
             'pageInfo' => $info,
             'isUrlCollected' => $isUrlCollected,
             'allowedQueryParams' => $allowedQueryParams,
-            'isEnabled' => $this->scopeConfig->isSetFlag(self::CONFIG_IS_ENABLED, ScopeInterface::SCOPE_STORE),
+            'isEnabled' => $isEnabled,
             'ingestionUrl' => $ingestionUrl,
         ];
     }

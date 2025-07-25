@@ -1,8 +1,11 @@
 <?php
 /** @var $block \Magento\Framework\View\Element\Template */
-/** @var $beacon \Ecomdev\RUMBeacon\ViewModel\BeaconInfo */
-$beacon = $block->getBeaconInfo();
+/** @var $csp \Magento\Csp\Api\InlineUtilInterface */
+/** @var $secureRenderer \Magento\Framework\View\Helper\SecureHtmlRenderer */
+echo $secureRenderer->renderTag(
+    'script',
+    ['type' => 'text/x-rum-beacon-config'],
+    $block->getBeaconInfo()->ingestInfoJson(),
+    false
+);
 ?>
-<script type="ecomdev/rum-beacon-ingest">
-<?php echo $block->getBeaconInfo()->ingestInfoJson(); ?>
-</script>
