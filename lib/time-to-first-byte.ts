@@ -39,8 +39,8 @@ export default function(payload: Payload) {
 
             // If waiting time is less than max server metric, it is probably a cache hit
             if (ttfb.isCached === false
-                && ttfb.waiting > 0.0
-                && ttfb.waiting < maxTiming) {
+                && ttfb.request > 0.0
+                && ttfb.request < maxTiming) {
                 ttfb.isCached = true;
             }
         }

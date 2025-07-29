@@ -229,7 +229,7 @@ const X = (e) => {
   document.visibilityState === "hidden" ? e() : (e = et(e), document.addEventListener("visibilitychange", e, { once: !0 }), t(() => {
     e(), document.removeEventListener("visibilitychange", e);
   }));
-}, pt = [200, 500], Bt = (e, t = {}) => {
+}, pt = [200, 500], qt = (e, t = {}) => {
   const r = w(t = Object.assign({}, t), mt);
   let i = [], n = [], o = 0;
   const a = /* @__PURE__ */ new WeakMap(), s = /* @__PURE__ */ new WeakMap();
@@ -278,13 +278,13 @@ const X = (e) => {
       if (!v.longAnimationFrameEntries?.length) return;
       const D = v.interactionTime, _ = v.inputDelay, nt = v.processingDuration;
       let W, H, $ = 0, A = 0, V = 0, z = 0;
-      for (const B of v.longAnimationFrameEntries) {
-        A = A + B.startTime + B.duration - B.styleAndLayoutStart;
-        for (const E of B.scripts) {
+      for (const q of v.longAnimationFrameEntries) {
+        A = A + q.startTime + q.duration - q.styleAndLayoutStart;
+        for (const E of q.scripts) {
           const rt = E.startTime + E.duration;
           if (rt < D) continue;
-          const q = rt - Math.max(D, E.startTime), at = E.duration ? q / E.duration * E.forcedStyleAndLayoutDuration : 0;
-          $ += q - at, A += at, q > z && (H = E.startTime < D + _ ? "input-delay" : E.startTime >= D + _ + nt ? "presentation-delay" : "processing-duration", W = E, z = q);
+          const B = rt - Math.max(D, E.startTime), at = E.duration ? B / E.duration * E.forcedStyleAndLayoutDuration : 0;
+          $ += B - at, A += at, B > z && (H = E.startTime < D + _ ? "input-delay" : E.startTime >= D + _ + nt ? "presentation-delay" : "processing-duration", W = E, z = B);
         }
       }
       const J = v.longAnimationFrameEntries.at(-1), it = J ? J.startTime + J.duration : 0;
@@ -321,7 +321,7 @@ class ht {
     this.m?.(t);
   }
 }
-const vt = [2500, 4e3], qt = (e, t = {}) => {
+const vt = [2500, 4e3], Bt = (e, t = {}) => {
   const r = w(t = Object.assign({}, t), ht), i = /* @__PURE__ */ new WeakMap();
   r.m = (n) => {
     if (n.element) {
@@ -404,7 +404,7 @@ function Nt(e) {
         let s = !0;
         n > 0 ? (s = n, i = Math.max(i, n)) : n <= 0 && Rt.test(o) ? s = parseInt(o) : a === jt ? (s = o === Ut, r.isCached = s) : o && (s = o), r.serverTiming[a] = s;
       }
-      r.isCached === !1 && r.waiting > 0 && r.waiting < i && (r.isCached = !0);
+      r.isCached === !1 && r.request > 0 && r.request < i && (r.isCached = !0);
     }
     e.ttfb = r, e.pageInfo.isCached = r.isCached;
   }, {
@@ -422,7 +422,7 @@ function _t(e) {
   });
 }
 function Wt(e) {
-  qt((t) => {
+  Bt((t) => {
     e.lcp = {
       value: t.value,
       navigationType: t.navigationType,
@@ -446,7 +446,7 @@ function Ht(e) {
   });
 }
 function $t(e) {
-  Bt((t) => {
+  qt((t) => {
     const r = t.attribution.longestScript, i = {
       value: t.value,
       navigationType: t.navigationType,
