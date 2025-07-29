@@ -29,6 +29,11 @@ class MeasurementAggregator
         $this->counters[$type] = ($this->counters[$type] ?? 0) + 1;
     }
 
+    public function setAggregate(string $type, float $time): void
+    {
+        $this->timing[$type] = $time;
+    }
+
     public function renderTimingHeader(): string
     {
         $serverTimings = [];

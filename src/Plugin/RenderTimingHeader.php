@@ -23,6 +23,18 @@ readonly class RenderTimingHeader
 
     public function afterRenderResult(ResultInterface $subject, $output, ResponseInterface $response)
     {
+        if (\class_exists('Tideways\Profiler', false)
+            && \method_exists('Tideways\Profiler', 'getLayerMetrics')) {
+            foreach (\Tideways\Profiler::getLayerMetrics() as $metric) {
+                $name = match ($metric->name) {
+                    'rdbms' => 'db',
+                    default => $metric->name,
+                };
+
+                $this->measurementAggregator->setAggregate($name, $metric->wallTimeMicroseconds / 1e3);
+            }
+        }
+
         $timingHeader = $this->measurementAggregator->renderTimingHeader();
         if ($timingHeader) {
             $response->setHeader('Server-Timing', $timingHeader, true);
