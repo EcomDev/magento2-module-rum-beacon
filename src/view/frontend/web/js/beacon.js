@@ -153,9 +153,9 @@ const st = () => document.visibilityState !== "hidden" || document.prerendering 
       const u = w(o, ot), g = (h) => {
         for (const T of h) u.u(T);
         u.o > s.value && (s.value = u.o, s.entries = u.i, a());
-      }, m = x("layout-shift", g);
-      m && (a = b(n, s, lt, o.reportAllChanges), document.addEventListener("visibilitychange", () => {
-        document.visibilityState === "hidden" && (g(m.takeRecords()), a(!0));
+      }, p = x("layout-shift", g);
+      p && (a = b(n, s, lt, o.reportAllChanges), document.addEventListener("visibilitychange", () => {
+        document.visibilityState === "hidden" && (g(p.takeRecords()), a(!0));
       }), P(() => {
         u.o = 0, s = S("CLS", 0), a = b(n, s, lt, o.reportAllChanges), tt(() => a());
       }), setTimeout(a));
@@ -164,7 +164,7 @@ const st = () => document.visibilityState !== "hidden" || document.prerendering 
     const o = ((a) => {
       let s = {};
       if (a.entries.length) {
-        const u = a.entries.reduce((g, m) => g.value > m.value ? g : m);
+        const u = a.entries.reduce((g, p) => g.value > p.value ? g : p);
         if (u?.sources?.length) {
           const g = dt(u.sources);
           g && (s = { largestShiftTarget: i.get(g), largestShiftTime: u.startTime, largestShiftValue: u.value, largestShiftSource: g, largestShiftEntry: u, loadState: R(u.startTime) });
@@ -199,7 +199,7 @@ const gt = () => K ? Dt : performance.interactionCount ?? 0, kt = () => {
   "interactionCount" in performance || K || (K = x("event", Ft, { type: "event", buffered: !0, durationThreshold: 0 }));
 };
 let ft = 0;
-class mt {
+class pt {
   l = [];
   h = /* @__PURE__ */ new Map();
   m;
@@ -229,32 +229,32 @@ const X = (e) => {
   document.visibilityState === "hidden" ? e() : (e = et(e), document.addEventListener("visibilitychange", e, { once: !0 }), t(() => {
     e(), document.removeEventListener("visibilitychange", e);
   }));
-}, pt = [200, 500], qt = (e, t = {}) => {
-  const r = w(t = Object.assign({}, t), mt);
+}, mt = [200, 500], qt = (e, t = {}) => {
+  const r = w(t = Object.assign({}, t), pt);
   let i = [], n = [], o = 0;
   const a = /* @__PURE__ */ new WeakMap(), s = /* @__PURE__ */ new WeakMap();
   let u = !1;
   const g = () => {
-    u || (X(m), u = !0);
-  }, m = () => {
-    const c = r.l.map((p) => a.get(p.entries[0])), l = n.length - 50;
-    n = n.filter((p, y) => y >= l || c.includes(p));
+    u || (X(p), u = !0);
+  }, p = () => {
+    const c = r.l.map((m) => a.get(m.entries[0])), l = n.length - 50;
+    n = n.filter((m, y) => y >= l || c.includes(m));
     const d = /* @__PURE__ */ new Set();
-    for (const p of n) {
-      const y = h(p.startTime, p.processingEnd);
+    for (const m of n) {
+      const y = h(m.startTime, m.processingEnd);
       for (const C of y) d.add(C);
     }
     const f = i.length - 1 - 50;
-    i = i.filter((p, y) => p.startTime > o && y > f || d.has(p)), u = !1;
+    i = i.filter((m, y) => m.startTime > o && y > f || d.has(m)), u = !1;
   };
   r.m = (c) => {
     const l = c.startTime + c.duration;
     let d;
     o = Math.max(o, c.processingEnd);
     for (let f = n.length - 1; f >= 0; f--) {
-      const p = n[f];
-      if (Math.abs(l - p.renderTime) <= 8) {
-        d = p, d.startTime = Math.min(c.startTime, d.startTime), d.processingStart = Math.min(c.processingStart, d.processingStart), d.processingEnd = Math.max(c.processingEnd, d.processingEnd), d.entries.push(c);
+      const m = n[f];
+      if (Math.abs(l - m.renderTime) <= 8) {
+        d = m, d.startTime = Math.min(c.startTime, d.startTime), d.processingStart = Math.min(c.processingStart, d.processingStart), d.processingEnd = Math.max(c.processingEnd, d.processingEnd), d.entries.push(c);
         break;
       }
     }
@@ -273,7 +273,7 @@ const X = (e) => {
     }
     return d;
   }, T = (c) => {
-    const l = c.entries[0], d = a.get(l), f = l.processingStart, p = Math.max(l.startTime + l.duration, f), y = Math.min(d.processingEnd, p), C = d.entries.sort((v, D) => v.processingStart - D.processingStart), N = h(l.startTime, y), L = r.h.get(l.interactionId), k = { interactionTarget: s.get(L), interactionType: l.name.startsWith("key") ? "keyboard" : "pointer", interactionTime: l.startTime, nextPaintTime: p, processedEventEntries: C, longAnimationFrameEntries: N, inputDelay: f - l.startTime, processingDuration: y - f, presentationDelay: p - y, loadState: R(l.startTime), longestScript: void 0, totalScriptDuration: void 0, totalStyleAndLayoutDuration: void 0, totalPaintDuration: void 0, totalUnattributedDuration: void 0 };
+    const l = c.entries[0], d = a.get(l), f = l.processingStart, m = Math.max(l.startTime + l.duration, f), y = Math.min(d.processingEnd, m), C = d.entries.sort((v, D) => v.processingStart - D.processingStart), N = h(l.startTime, y), L = r.h.get(l.interactionId), k = { interactionTarget: s.get(L), interactionType: l.name.startsWith("key") ? "keyboard" : "pointer", interactionTime: l.startTime, nextPaintTime: m, processedEventEntries: C, longAnimationFrameEntries: N, inputDelay: f - l.startTime, processingDuration: y - f, presentationDelay: m - y, loadState: R(l.startTime), longestScript: void 0, totalScriptDuration: void 0, totalStyleAndLayoutDuration: void 0, totalPaintDuration: void 0, totalUnattributedDuration: void 0 };
     return ((v) => {
       if (!v.longAnimationFrameEntries?.length) return;
       const D = v.interactionTime, _ = v.inputDelay, nt = v.processingDuration;
@@ -297,17 +297,17 @@ const X = (e) => {
     globalThis.PerformanceEventTiming && "interactionId" in PerformanceEventTiming.prototype && U(() => {
       kt();
       let d, f = S("INP");
-      const p = w(l, mt), y = (N) => {
+      const m = w(l, pt), y = (N) => {
         X(() => {
-          for (const k of N) p.u(k);
-          const L = p.M();
+          for (const k of N) m.u(k);
+          const L = m.M();
           L && L.T !== f.value && (f.value = L.T, f.entries = L.entries, d());
         });
       }, C = x("event", y, { durationThreshold: l.durationThreshold ?? 40 });
-      d = b(c, f, pt, l.reportAllChanges), C && (C.observe({ type: "first-input", buffered: !0 }), document.addEventListener("visibilitychange", () => {
+      d = b(c, f, mt, l.reportAllChanges), C && (C.observe({ type: "first-input", buffered: !0 }), document.addEventListener("visibilitychange", () => {
         document.visibilityState === "hidden" && (y(C.takeRecords()), d(!0));
       }), P(() => {
-        p.v(), f = S("INP"), d = b(c, f, pt, l.reportAllChanges);
+        m.v(), f = S("INP"), d = b(c, f, mt, l.reportAllChanges);
       }));
     });
   })((c) => {
@@ -332,14 +332,14 @@ const vt = [2500, 4e3], Bt = (e, t = {}) => {
     U(() => {
       const a = St();
       let s, u = S("LCP");
-      const g = w(o, ht), m = (T) => {
+      const g = w(o, ht), p = (T) => {
         o.reportAllChanges || (T = T.slice(-1));
         for (const c of T) g.u(c), c.startTime < a.firstHiddenTime && (u.value = Math.max(c.startTime - F(), 0), u.entries = [c], s());
-      }, h = x("largest-contentful-paint", m);
+      }, h = x("largest-contentful-paint", p);
       if (h) {
         s = b(n, u, vt, o.reportAllChanges);
         const T = et(() => {
-          m(h.takeRecords()), h.disconnect(), s(!0);
+          p(h.takeRecords()), h.disconnect(), s(!0);
         });
         for (const c of ["keydown", "click", "visibilitychange"]) addEventListener(c, () => X(T), { capture: !0, once: !0 });
         P((c) => {
@@ -355,8 +355,8 @@ const vt = [2500, 4e3], Bt = (e, t = {}) => {
       if (a.entries.length) {
         const u = I();
         if (u) {
-          const g = u.activationStart || 0, m = a.entries.at(-1), h = m.url && performance.getEntriesByType("resource").filter((d) => d.name === m.url)[0], T = Math.max(0, u.responseStart - g), c = Math.max(T, h ? (h.requestStart || h.startTime) - g : 0), l = Math.min(a.value, Math.max(c, h ? h.responseEnd - g : 0));
-          s = { target: i.get(m), timeToFirstByte: T, resourceLoadDelay: c - T, resourceLoadDuration: l - c, elementRenderDelay: a.value - l, navigationEntry: u, lcpEntry: m }, m.url && (s.url = m.url), h && (s.lcpResourceEntry = h);
+          const g = u.activationStart || 0, p = a.entries.at(-1), h = p.url && performance.getEntriesByType("resource").filter((d) => d.name === p.url)[0], T = Math.max(0, u.responseStart - g), c = Math.max(T, h ? (h.requestStart || h.startTime) - g : 0), l = Math.min(a.value, Math.max(c, h ? h.responseEnd - g : 0));
+          s = { target: i.get(p), timeToFirstByte: T, resourceLoadDelay: c - T, resourceLoadDuration: l - c, elementRenderDelay: a.value - l, navigationEntry: u, lcpEntry: p }, p.url && (s.url = p.url), h && (s.lcpResourceEntry = h);
         }
       }
       return Object.assign(a, { attribution: s });
@@ -378,8 +378,8 @@ const vt = [2500, 4e3], Bt = (e, t = {}) => {
     const i = ((n) => {
       let o = { waitingDuration: 0, cacheDuration: 0, dnsDuration: 0, connectionDuration: 0, requestDuration: 0 };
       if (n.entries.length) {
-        const a = n.entries[0], s = a.activationStart || 0, u = Math.max((a.workerStart || a.fetchStart) - s, 0), g = Math.max(a.domainLookupStart - s, 0), m = Math.max(a.connectStart - s, 0), h = Math.max(a.connectEnd - s, 0);
-        o = { waitingDuration: u, cacheDuration: g - u, dnsDuration: m - g, connectionDuration: h - m, requestDuration: n.value - h, navigationEntry: a };
+        const a = n.entries[0], s = a.activationStart || 0, u = Math.max((a.workerStart || a.fetchStart) - s, 0), g = Math.max(a.domainLookupStart - s, 0), p = Math.max(a.connectStart - s, 0), h = Math.max(a.connectEnd - s, 0);
+        o = { waitingDuration: u, cacheDuration: g - u, dnsDuration: p - g, connectionDuration: h - p, requestDuration: n.value - h, navigationEntry: a };
       }
       return Object.assign(n, { attribution: o });
     })(r);
@@ -391,9 +391,10 @@ function Nt(e) {
     const r = {
       value: t.value,
       cache: t.attribution.cacheDuration,
-      connection: t.attribution.connectionDuration ?? 0,
-      request: t.attribution.requestDuration ?? 0,
-      waiting: t.attribution.waitingDuration ?? 0,
+      dns: t.attribution.dnsDuration,
+      connection: t.attribution.connectionDuration,
+      request: t.attribution.requestDuration,
+      waiting: t.attribution.waitingDuration,
       isCached: !1,
       navigationType: t.navigationType,
       serverTiming: {}
