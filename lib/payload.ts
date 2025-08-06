@@ -33,6 +33,7 @@ export interface TimeToFirstByte extends Metric {
     waiting: number,
     cache: number,
     connection: number,
+    dns: number,
     request: number,
     isCached: boolean,
     serverTiming: SimpleDictionary

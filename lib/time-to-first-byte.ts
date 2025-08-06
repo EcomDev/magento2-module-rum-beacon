@@ -10,9 +10,10 @@ export default function(payload: Payload) {
          const ttfb: TimeToFirstByte = {
             value: metric.value,
             cache: metric.attribution.cacheDuration,
-            connection: metric.attribution.connectionDuration ?? 0,
-            request: metric.attribution.requestDuration ?? 0,
-            waiting: metric.attribution.waitingDuration ?? 0,
+            dns: metric.attribution.dnsDuration,
+            connection: metric.attribution.connectionDuration,
+            request: metric.attribution.requestDuration,
+            waiting: metric.attribution.waitingDuration,
             isCached: false,
             navigationType: metric.navigationType,
             serverTiming: {}
