@@ -17,12 +17,12 @@ export default function(
         isCached: false
     };
 
-    if (pageInfo.info.identifer) {
-        pageInfo.identifier = <string>pageInfo.info.identifer;
+    if (pageInfo.info.identifier) {
+        pageInfo.identifier = <string>pageInfo.info.identifier;
     }
 
     delete pageInfo.info.type;
-    delete pageInfo.info.identifer;
+    delete pageInfo.info.identifier;
     delete pageInfo.info.store;
 
     if (!config.isUrlCollected) {
