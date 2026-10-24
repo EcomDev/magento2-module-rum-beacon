@@ -12,7 +12,7 @@ function Lt(e) {
     info: Object.assign({}, e.pageInfo),
     isCached: !1
   };
-  return t.info.identifer && (t.identifier = t.info.identifer), delete t.info.type, delete t.info.identifer, delete t.info.store, e.isUrlCollected && (t.request_uri = location.pathname, t.request_query = {}, location.search && new URLSearchParams(location.search).forEach((i, n) => {
+  return t.info.identifier && (t.identifier = t.info.identifier), delete t.info.type, delete t.info.identifier, delete t.info.store, e.isUrlCollected && (t.request_uri = location.pathname, t.request_query = {}, location.search && new URLSearchParams(location.search).forEach((i, n) => {
     e.allowedQueryParams[n] && (t.request_query[n] = i);
   })), t;
 }
